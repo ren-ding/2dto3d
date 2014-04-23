@@ -1,4 +1,4 @@
-function [gaussianMan,xy_mtx,idx_xy] = modelwithTexture(im,poseK,cameraR,camerat,cameraS,edges,vals,skel,params_mid_raduis,params_tb_raduis,varargin)
+function [gaussianMan,xy_mtx,idx_xy] = modelwithTexture(R2_idx,im,poseK,cameraR,camerat,cameraS,edges,vals,skel,params_mid_raduis,params_tb_raduis,varargin)
 %mid raduis parameters: body,upper arms,low arms, uppper legs, low legs
 %params_mid_raduis = [0,0,0,0,0];
 
@@ -70,7 +70,7 @@ if(type<4)
             tex= imread(['texture/13.jpg']);
             P_top_body=(P+P1)/2;
             r=edges(6)+params_mid_raduis(1);
-            [x,y,z]=cylinder2P([r+params_tb_raduis(1),r+params_tb_raduis(2)],8,P_top_body,P_bot_body);
+            [x,y,z]=cylinder2P([r+params_tb_raduis(1),r+params_tb_raduis(2)],8,P_top_body,P_bot_body,R2_idx(5,:));
           
             surf(x,y,z,tex, 'edgecolor', 'none','FaceColor','texturemap');
             
@@ -130,11 +130,14 @@ if(type<4)
             %upper arms
             if(i==10)
                 tex= imread(['texture/15.jpg']);
+                [x,y,z]=cylinder2P([edge_arm+params_mid_raduis(2)+params_tb_raduis(3),edge_arm+params_mid_raduis(2)+params_tb_raduis(4)],8,P1,P2,R2_idx(6,:));
+           
             end
             if(i==13)
                 tex= imread(['texture/20.jpg']);
+                [x,y,z]=cylinder2P([edge_arm+params_mid_raduis(2)+params_tb_raduis(3),edge_arm+params_mid_raduis(2)+params_tb_raduis(4)],8,P1,P2,R2_idx(8,:));
+           
             end
-            [x,y,z]=cylinder2P([edge_arm+params_mid_raduis(2)+params_tb_raduis(3),edge_arm+params_mid_raduis(2)+params_tb_raduis(4)],8,P1,P2);
             surf(x,y,z,tex, 'edgecolor', 'none','FaceColor','texturemap');
             
             %upper arms projection
@@ -183,11 +186,14 @@ if(type<4)
             %lower arms
             if(i==11)
                 tex= imread(['texture/18.jpg']);
+                [x,y,z]=cylinder2P([edge_arm+params_mid_raduis(3)+params_tb_raduis(5),edge_arm+params_mid_raduis(3)+params_tb_raduis(6)],8,P1,P2,R2_idx(7,:));
+            
             end
             if(i==14)
                 tex= imread(['texture/23.jpg']);
+                [x,y,z]=cylinder2P([edge_arm+params_mid_raduis(3)+params_tb_raduis(5),edge_arm+params_mid_raduis(3)+params_tb_raduis(6)],8,P1,P2,R2_idx(9,:));
+            
             end
-            [x,y,z]=cylinder2P([edge_arm+params_mid_raduis(3)+params_tb_raduis(5),edge_arm+params_mid_raduis(3)+params_tb_raduis(6)],8,P1,P2);
             surf(x,y,z,tex, 'edgecolor', 'none','FaceColor','texturemap');
             
             %lower arms projection
@@ -220,11 +226,14 @@ if(type<4)
             %upper legs
             if(i==2)
                 tex= imread(['texture/2.jpg']);
+                [x,y,z]=cylinder2P([edge_leg+params_mid_raduis(4)+params_tb_raduis(7),edge_leg+params_mid_raduis(4)+params_tb_raduis(8)],8,P1,P2,R2_idx(1,:));
+            
             end
             if(i==5)
                 tex= imread(['texture/8.jpg']);
+                [x,y,z]=cylinder2P([edge_leg+params_mid_raduis(4)+params_tb_raduis(7),edge_leg+params_mid_raduis(4)+params_tb_raduis(8)],8,P1,P2,R2_idx(3,:));
+            
             end
-            [x,y,z]=cylinder2P([edge_leg+params_mid_raduis(4)+params_tb_raduis(7),edge_leg+params_mid_raduis(4)+params_tb_raduis(8)],8,P1,P2);
             surf(x,y,z,tex, 'edgecolor', 'none','FaceColor','texturemap');
             
             %upper legs projection
@@ -272,11 +281,14 @@ if(type<4)
             %lower legs
             if(i==3)
                 tex= imread(['texture/5.jpg']);
+                [x,y,z]=cylinder2P([edge_leg+params_mid_raduis(5)+params_tb_raduis(9),edge_leg+params_mid_raduis(5)+params_tb_raduis(10)],8,P1,P2,R2_idx(2,:));
+            
             end
             if(i==6)
                 tex= imread(['texture/11.jpg']);
+                [x,y,z]=cylinder2P([edge_leg+params_mid_raduis(5)+params_tb_raduis(9),edge_leg+params_mid_raduis(5)+params_tb_raduis(10)],8,P1,P2,R2_idx(4,:));
+            
             end
-            [x,y,z]=cylinder2P([edge_leg+params_mid_raduis(5)+params_tb_raduis(9),edge_leg+params_mid_raduis(5)+params_tb_raduis(10)],8,P1,P2);
             surf(x,y,z,tex, 'edgecolor', 'none','FaceColor','texturemap');
             
             %lower legs projection

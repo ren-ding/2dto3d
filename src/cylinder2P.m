@@ -1,4 +1,4 @@
-function [X, Y, Z] = cylinder2P(R,N,r1,r2)
+function [X, Y, Z, R2] = cylinder2P(R,N,r1,r2,R2)
     %Set up an array of angles for the polygon.
     %R is the radius of the cylinder
     %N is the number of sides
@@ -18,7 +18,10 @@ function [X, Y, Z] = cylinder2P(R,N,r1,r2)
     
     v=(r2-r1)/sqrt((r2-r1)*(r2-r1)');    %Normalized vector;
     %cylinder axis described by: r(t)=r1+v*t for 0<t<1
-    R2=rand(1,3);               %linear independent vector (of v)
+    if ~exist('R2')
+        R2=rand(1,3);               %linear independent vector (of v)
+    end;
+    
     x2=v-R2/(R2*v');            %orthogonal vector to v
     x2=x2/sqrt(x2*x2');         %orthonormal vector to v
     x3=cross(v,x2);             %vector orthonormal to v and x2
@@ -38,5 +41,4 @@ function [X, Y, Z] = cylinder2P(R,N,r1,r2)
       Z(j, :) = r1z+(r2z-r1z)*t+R(j)*cos(theta)*x2z+R(j)*sin(theta)*x3z;
     end
 
-    %surf(X, Y, Z);
 end

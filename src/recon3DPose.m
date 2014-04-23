@@ -68,7 +68,7 @@ if(pose.viz)
     %uppper legs top/bottom, low legs top/bottom
     params_tb_raduis = zeros(1,10);
     
-    [gaussianMan,xy_mtx,idx_xy] = visualizeGaussianModel(pose.K,camera.R,camera.t,camera.S,edges,pose.XnewR,pose.skel,params_mid_raduis,params_tb_raduis);
+    [gaussianMan,xy_mtx,idx_xy,R2_idx] = visualizeGaussianModel(pose.K,camera.R,camera.t,camera.S,edges,pose.XnewR,pose.skel,params_mid_raduis,params_tb_raduis);
     drawCam(R,t);
     
     %change to figure1(gray image)
@@ -161,7 +161,7 @@ if(pose.viz)
     %after adjusting edge, draw the 3D model again
     Xnew1 = alignToCamera(pose.XnewR,camera.R,camera.t,R,t);
     figure(5);clf;
-    [gaussianMan,xy_mtx,idx_xy] = visualizeGaussianModel(pose.K,camera.R,camera.t,camera.S,edges,pose.XnewR,pose.skel,adjust_res_five,adjust_tb_five);
+    [gaussianMan,xy_mtx,idx_xy,R2_idx] = visualizeGaussianModel(pose.K,camera.R,camera.t,camera.S,edges,pose.XnewR,pose.skel,adjust_res_five,adjust_tb_five);
     drawCam(R,t);
     
     adjust_xy=projectIntoAffineCam(Xnew1,pose.K,camera.R,camera.t,camera.S,pose.skel);

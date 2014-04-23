@@ -2,7 +2,7 @@ function [ output_args ] = test()
 %TEST Summary of this function goes here
 %   Detailed explanation goes here
 
-load('test_tm2.mat');
+load('tmp4.mat');
 
 adjust_xy=projectIntoAffineCam(Xnew1,pose.K,camera.R,camera.t,camera.S,pose.skel);
 adjust_xy=[adjust_xy(1,:);adjust_xy(2,:)];
@@ -46,7 +46,7 @@ end
 
 disp(shift_res);
 
-[gaussianMan,xy_mtx,idx_xy] = modelwithTexture(im,pose.K,camera.R,camera.t,camera.S,edges,pose.XnewR,pose.skel,adjust_res_five,adjust_tb_five);
+[gaussianMan,xy_mtx,idx_xy] = modelwithTexture(R2_idx,im,pose.K,camera.R,camera.t,camera.S,edges,pose.XnewR,pose.skel,adjust_res_five,adjust_tb_five);
 
 end
 

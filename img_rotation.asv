@@ -58,7 +58,7 @@ function [new_texture]= img_rotation(pbx,pby,minX, minY,texture)
         
         
         
-        new_texture = ones(100,100,3);
+        new_texture = ones(minY,minX,3);
         mask_inputimage = poly2mask(pbx-minX,pby-minY,size(texture,1),size(texture,2));
         
         %[w,h,~]=size(texture);

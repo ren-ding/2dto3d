@@ -1,4 +1,4 @@
-function [gaussianMan,xy_mtx,idx_xy] = visualizeGaussianModel(poseK,cameraR,camerat,cameraS,edges,vals,skel,params_mid_raduis,params_tb_raduis,varargin)
+function [gaussianMan,xy_mtx,idx_xy,R2_idx] = visualizeGaussianModel(poseK,cameraR,camerat,cameraS,edges,vals,skel,params_mid_raduis,params_tb_raduis,varargin)
 %mid raduis parameters: body,upper arms,low arms, uppper legs, low legs
 %params_mid_raduis = [0,0,0,0,0];
 
@@ -58,6 +58,7 @@ if(type<4)
     edge_leg=(edge_leg(1)+edge_leg(2)+edge_leg(3))/3;
     
     xy_mtx=[];
+    R2_idx=[];
     P_bot_body=[0,0,0];
     %calculate the average of sphere1 and sphere14 which is the hip
     s1 = [0,0,0];
@@ -78,13 +79,15 @@ if(type<4)
             %head projection         
             xy = projectBack([x(:),z(:),y(:)],poseK,cameraR,camerat,cameraS);
             xy_mtx=[xy_mtx,xy];
+            
             idx_nmb=idx_nmb+1;idx_xy=[idx_xy,repmat(idx_nmb,1,size(xy,2))];
             
             %body
             P_top_body=(P+P1)/2;
             r=edges(6)+params_mid_raduis(1);
-            [x,y,z]=cylinder2P([r+params_tb_raduis(1),r+params_tb_raduis(2)],8,P_top_body,P_bot_body);
+            [x,y,z,R2]=cylinder2P([r+params_tb_raduis(1),r+params_tb_raduis(2)],8,P_top_body,P_bot_body);
             surf(x,y,z);
+            R2_idx=[R2_idx;R2];
             colormap gray
             %body projection
             xy = projectBack([x(:),z(:),y(:)],poseK,cameraR,camerat,cameraS);
@@ -131,7 +134,8 @@ if(type<4)
             idx_nmb=idx_nmb+1;idx_xy=[idx_xy,repmat(idx_nmb,1,size(xy,2))];
             
             %upper arms            
-            [x,y,z]=cylinder2P([edge_arm+params_mid_raduis(2)+params_tb_raduis(3),edge_arm+params_mid_raduis(2)+params_tb_raduis(4)],8,P1,P2);
+            [x,y,z,R2]=cylinder2P([edge_arm+params_mid_raduis(2)+params_tb_raduis(3),edge_arm+params_mid_raduis(2)+params_tb_raduis(4)],8,P1,P2);
+            R2_idx=[R2_idx;R2];
             surf(x,y,z);
             colormap gray
             %upper arms projection
@@ -164,7 +168,8 @@ if(type<4)
             idx_nmb=idx_nmb+1;idx_xy=[idx_xy,repmat(idx_nmb,1,size(xy,2))];
             
             %lower arms            
-            [x,y,z]=cylinder2P([edge_arm+params_mid_raduis(3)+params_tb_raduis(5),edge_arm+params_mid_raduis(3)+params_tb_raduis(6)],8,P1,P2);
+            [x,y,z,R2]=cylinder2P([edge_arm+params_mid_raduis(3)+params_tb_raduis(5),edge_arm+params_mid_raduis(3)+params_tb_raduis(6)],8,P1,P2);
+            R2_idx=[R2_idx;R2];
             surf(x,y,z);
             colormap gray
             %lower arms projection
@@ -186,7 +191,8 @@ if(type<4)
             idx_nmb=idx_nmb+1;idx_xy=[idx_xy,repmat(idx_nmb,1,size(xy,2))];
             
             %upper legs
-            [x,y,z]=cylinder2P([edge_leg+params_mid_raduis(4)+params_tb_raduis(7),edge_leg+params_mid_raduis(4)+params_tb_raduis(8)],8,P1,P2);
+            [x,y,z,R2]=cylinder2P([edge_leg+params_mid_raduis(4)+params_tb_raduis(7),edge_leg+params_mid_raduis(4)+params_tb_raduis(8)],8,P1,P2);
+            R2_idx=[R2_idx;R2];
             surf(x,y,z);
             colormap gray
             %upper legs projection
@@ -218,7 +224,8 @@ if(type<4)
             idx_nmb=idx_nmb+1;idx_xy=[idx_xy,repmat(idx_nmb,1,size(xy,2))];
                         
             %lower legs
-            [x,y,z]=cylinder2P([edge_leg+params_mid_raduis(5)+params_tb_raduis(9),edge_leg+params_mid_raduis(5)+params_tb_raduis(10)],8,P1,P2);
+            [x,y,z,R2]=cylinder2P([edge_leg+params_mid_raduis(5)+params_tb_raduis(9),edge_leg+params_mid_raduis(5)+params_tb_raduis(10)],8,P1,P2);
+            R2_idx=[R2_idx;R2];
             surf(x,y,z);
             colormap gray
             %lower legs projection

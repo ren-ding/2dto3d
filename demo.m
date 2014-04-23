@@ -32,7 +32,7 @@ load('PARSE_model');
 %     xy = joints(im, boxes(1,:),colorset,imlist(i).name); % show the best detection
 %     
     %loading samples with detected joints
-    sample='sample6';
+    sample='flash';
     load(sample);
 
     update_joints = 'y';    
