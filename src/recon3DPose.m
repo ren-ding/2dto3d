@@ -178,7 +178,7 @@ if(pose.viz)
         get_texture(pbx,pby,im,i,adjust_xy,0);
     end
     
-    [gaussianMan,xy_mtx,idx_xy] = modelwithTexture(im,pose.K,camera.R,camera.t,camera.S,edges,pose.XnewR,pose.skel,adjust_res_five,adjust_tb_five);
+    [gaussianMan,xy_mtx,idx_xy] = modelwithTexture(R2_idx,im,pose.K,camera.R,camera.t,camera.S,edges,pose.XnewR,pose.skel,adjust_res_five,adjust_tb_five);
     
     
     %change to original image,draw projection onto it

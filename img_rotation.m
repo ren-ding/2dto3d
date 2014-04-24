@@ -1,5 +1,5 @@
 
-function [new_texture]= img_rotation(pbx,pby,minX, minY,texture)
+function [new_texture]= img_rotation(j1,j2,pbx,pby,minX, minY,texture)
 %     %vertical vector
 %     v1 = [0,-1];
 %     %body part's direction
@@ -7,9 +7,7 @@ function [new_texture]= img_rotation(pbx,pby,minX, minY,texture)
 %     
 %     a=acosd(dot(v1,direction_vec)/(norm(v1)*norm(direction_vec)));
 %     
-%     if (a>45)
-%         a = a-90;
-%     end
+%     
 %     
 %     I = mat2gray(texture);
 %     texture = imrotate(I,a,'bilinear','crop');
@@ -23,7 +21,7 @@ function [new_texture]= img_rotation(pbx,pby,minX, minY,texture)
         %  |        |          |        |
         %   p1------p4         xt1-----xt4
         
-        [p1,p2,p3,p4]= find_project_edge(pbx,pby);
+        [p1,p2,p3,p4]= find_project_edge_ordered(j1,j2,pbx,pby);
         p1=p1-[minX minY];
         p2=p2-[minX minY];
         p3=p3-[minX minY];
@@ -75,7 +73,7 @@ function [new_texture]= img_rotation(pbx,pby,minX, minY,texture)
                 end
             end
         end
-        imshow(new_texture);
+        %imshow(new_texture);
 %         movingPoints = [xt1;xt2;xt3;xt4];
 %         fixedPoints  = [p1;p2;p3;p4];
 %         t_piecewise_linear = fitgeotrans(movingPoints,fixedPoints,'pwl');
