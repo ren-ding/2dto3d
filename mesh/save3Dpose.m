@@ -18,7 +18,7 @@ connect = skelConnectionMatrix(skel);
 indices = find(connect);
 [I, J] = ind2sub(size(connect), indices);
 
-figure(1);clf;
+figure(21);clf;
 plot3(vals(:,1),vals(:,2),vals(:,3),'o');
 for i = 1: size(vals,1)
     h1 = text( vals(i, 1), vals(i, 2), vals(i, 3),joint_names{i},'FontSize',10,'FontWeight','bold');

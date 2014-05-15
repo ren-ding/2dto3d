@@ -65,11 +65,16 @@ function [min_units] = edge_eachpart(point1, point2,center_point,BW2,looptimes)
         edge_point1=center_point-ht_norm*units;
         edge_point2=center_point+ht_norm*units;
 
-        hold on;
+        %display the processing
+        %hold on;
         %plot width line
         %plot(edge_point1(1),edge_point1(2),'.','MarkerEdgeColor','g','linewidth',1);
         %plot(edge_point2(1),edge_point2(2),'.','MarkerEdgeColor','g','linewidth',1);
         %pause(.1);
+        if(edge_point1(1) < 1 || edge_point1(2) < 1 || edge_point2(1) < 1 || edge_point2(2) < 1)
+            break;
+        end
+        
         bw2_edge_flag1=BW2(int32(edge_point1(2)),int32(edge_point1(1)));
         bw2_edge_flag2=BW2(int32(edge_point2(2)),int32(edge_point2(1)));
         if(bw2_edge_flag1==1)
@@ -82,5 +87,6 @@ function [min_units] = edge_eachpart(point1, point2,center_point,BW2,looptimes)
     end
     %pick the smaller edge between left and right
     min_units=min(left_units,right_units);
-    disp(num2str(min_units));
+    
+    %disp(num2str(min_units));
 end

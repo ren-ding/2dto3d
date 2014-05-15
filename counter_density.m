@@ -1,11 +1,11 @@
 %pbx,pby:polygon edge points
-%grey_image:grey image
-function [density]= counter_density(pbx,pby,grey_img)
+%canny_image:grey image with canny edge detection
+function [density]= counter_density(pbx,pby,canny_image)
     %attention, figure x,y are opesite
-    [m,n]=size(grey_img);
+    [m,n]=size(canny_image);
     BW = poly2mask(pbx, pby, m, n);
-    imBW=BW&grey_img;
+    imBW=BW&canny_image;
     
-    %calculate the density,sum(BW(:))/50000 
+    %calculate the density
     density = sum( imBW(:))/sum(BW(:));
 end
